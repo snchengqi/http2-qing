@@ -8,7 +8,7 @@ import com.sn.qing.http2.core.ConnectionPostProcessor;
 import com.sn.qing.http2.core.StreamReaderListener;
 import com.sn.qing.http2.core.connection.Connection;
 import com.sn.qing.http2.core.entity.*;
-import com.sn.qing.http2.core.handler.Http2ClientInitializer;
+import com.sn.qing.http2.client.initializer.Http2ClientInitializer;
 import com.sn.qing.http2.core.handler.NettyHttp2HandlerBuilder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelOption;

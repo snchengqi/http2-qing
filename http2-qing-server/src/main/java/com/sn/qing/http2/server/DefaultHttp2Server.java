@@ -5,7 +5,7 @@ import com.sn.qing.http2.core.StreamReaderListener;
 import com.sn.qing.http2.core.connection.Connection;
 import com.sn.qing.http2.core.entity.HttpRequest;
 import com.sn.qing.http2.core.entity.StreamMessage;
-import com.sn.qing.http2.core.handler.Http2ServerInitializer;
+import com.sn.qing.http2.server.initializer.Http2ServerInitializer;
 import com.sn.qing.http2.core.handler.NettyHttp2HandlerBuilder;
 import com.sn.qing.http2.server.connection.SimpleConnectionFacade;
 import com.sn.qing.http2.server.connection.manager.ConnectionManager;
