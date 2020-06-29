@@ -18,7 +18,7 @@ public interface Connection extends StreamReaderInvoker, StreamWriterInvoker, Cl
     /**
      * Listener for the http2 connection
      */
-    interface Listener {
+    interface Listener extends Comparable<Listener> {
 
         /**
          * It will be called when trigger connection`s state changed
@@ -26,6 +26,11 @@ public interface Connection extends StreamReaderInvoker, StreamWriterInvoker, Cl
          * @param state state of the connection
          */
         void onStateChange(Connection connection, State state);
+
+        @Override
+        default int compareTo(Listener o) {
+            return this.hashCode() - o.hashCode();
+        }
     }
 
     /**

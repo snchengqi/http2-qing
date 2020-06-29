@@ -12,10 +12,10 @@ import io.netty.handler.codec.http2.*;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.Consumer;
 
 /**
@@ -145,7 +145,7 @@ public class DefaultConnection implements Connection, ChannelHandlerContextAware
         this.decoder = decoder;
         this.streamMessageKey = connection.newKey();
         this.streamListenerKey = connection.newKey();
-        this.listeners = new HashSet<>();
+        this.listeners = new ConcurrentSkipListSet<>();
     }
 
     /**
@@ -283,16 +283,22 @@ public class DefaultConnection implements Connection, ChannelHandlerContextAware
     @Override
     public CompletableFuture<Http2Stream> writeHeaders(Http2Headers headers, boolean endStream, StreamReaderListener listener) {
         int streamId = connection.local().incrementAndGetNextStreamId();
-        Http2Stream stream = connection.stream(streamId);
-        if (Objects.isNull(listener)) {
-            listener = doNothingListener;
+        try {
+            Http2Stream stream = connection.local().createStream(streamId, false);
+            if (Objects.isNull(listener)) {
+                listener = doNothingListener;
+            }
+            StreamReaderListener finalListener = listener;
+            return doInEventLoop(stream, promise -> {
+                stream.setProperty(streamListenerKey, finalListener);
+                encoder.writeHeaders(context, streamId, headers, 0, endStream, promise);
+                context.pipeline().flush();
+            });
+        } catch (Http2Exception e) {
+            CompletableFuture<Http2Stream> future = new CompletableFuture<>();
+            future.completeExceptionally(e);
+            return future;
         }
-        StreamReaderListener finalListener = listener;
-        return doInEventLoop(stream, promise -> {
-            stream.setProperty(streamListenerKey, finalListener);
-            encoder.writeHeaders(context, streamId, headers, 0, endStream, promise);
-            context.flush();
-        });
     }
 
     @Override
@@ -301,7 +307,7 @@ public class DefaultConnection implements Connection, ChannelHandlerContextAware
         Objects.requireNonNull(stream, "stream not exist");
         return doInEventLoop(stream, promise -> {
             encoder.writeHeaders(context, streamId, headers, 0, endStream, promise);
-            context.flush();
+            context.pipeline().flush();
         });
     }
 
@@ -310,7 +316,7 @@ public class DefaultConnection implements Connection, ChannelHandlerContextAware
         return doInEventLoop(stream, promise -> {
             ByteBuf byteBuf = context.alloc().buffer().writeBytes(data);
             encoder.writeData(context, stream.id(), byteBuf, 0, endStream, promise);
-            context.flush();
+            context.pipeline().flush();
         });
     }
 

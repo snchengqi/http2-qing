@@ -2,3 +2,8 @@
 /http2-qing-client/http2-qing-client.iml
 /http2-qing-core/http2-qing-core.iml
 /http2-qing-server/http2-qing-server.iml
+/http2-qing-example/http2-qing-example.iml
+/http2-qing-client/target/
+/http2-qing-core/target/
+/http2-qing-example/target/
+/http2-qing-server/target/

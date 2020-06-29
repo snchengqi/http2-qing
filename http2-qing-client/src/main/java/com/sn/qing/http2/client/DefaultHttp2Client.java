@@ -1,6 +1,7 @@
 package com.sn.qing.http2.client;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.sn.qing.http2.client.initializer.Http2ClientInitializer;
 import com.sn.qing.http2.client.push.ServerPushContext;
 import com.sn.qing.http2.client.push.ServerPushHandler;
 import com.sn.qing.http2.client.reconnect.ReconnectPolicy;
@@ -8,12 +9,12 @@ import com.sn.qing.http2.core.ConnectionPostProcessor;
 import com.sn.qing.http2.core.StreamReaderListener;
 import com.sn.qing.http2.core.connection.Connection;
 import com.sn.qing.http2.core.entity.*;
-import com.sn.qing.http2.client.initializer.Http2ClientInitializer;
 import com.sn.qing.http2.core.handler.NettyHttp2HandlerBuilder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.http2.Http2Stream;
 
 import java.io.IOException;
@@ -57,7 +58,7 @@ public class DefaultHttp2Client implements Http2Client {
         if (!Objects.isNull(reconnectPolicy)) {
             this.reconnectPolicy = reconnectPolicy;
         }
-        if (reconnectPolicy.supportReconnect()) {
+        if (this.reconnectPolicy.supportReconnect()) {
             executorService = new ScheduledThreadPoolExecutor(1,
                     new ThreadFactoryBuilder().setNameFormat("reconnect-%d").build());
             reconnectTimes = new AtomicInteger();
@@ -70,6 +71,7 @@ public class DefaultHttp2Client implements Http2Client {
         bootstrap = new Bootstrap();
         loopGroup = new NioEventLoopGroup();
         bootstrap.group(loopGroup)
+                .channel(NioSocketChannel.class)
                 .option(ChannelOption.TCP_NODELAY, true)
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, connectTimeout)
                 .handler(new Http2ClientInitializer(builder, sslEnable, crtPath));
@@ -81,6 +83,8 @@ public class DefaultHttp2Client implements Http2Client {
         Connection.Listener notifyListener = (connection, state) -> {
           if (state == Connection.State.CREATED) {
               connectFuture.complete(null);
+          } else if (state == Connection.State.CLOSED){
+              connectFuture.completeExceptionally(new IOException("connection has been closed"));
           }
         };
         postProcessor.replaceNotifyListener(notifyListener);
@@ -100,7 +104,7 @@ public class DefaultHttp2Client implements Http2Client {
                 close0();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 

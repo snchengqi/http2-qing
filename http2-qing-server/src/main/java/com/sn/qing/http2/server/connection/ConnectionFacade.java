@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * @author ChengQi
  * @date 2020-06-24 14:22
  */
-public interface ConnectionFacade extends Closeable {
+public interface ConnectionFacade extends Closeable, Comparable<ConnectionFacade> {
 
     /**
      * used to write http2 response message to client endpoint

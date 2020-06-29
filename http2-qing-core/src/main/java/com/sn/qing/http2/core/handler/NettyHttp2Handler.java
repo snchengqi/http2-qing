@@ -63,6 +63,13 @@ public class NettyHttp2Handler extends Http2ConnectionHandler {
         ctx.channel().pipeline().addAfter("ideaHandler", "readOrWriteTimeHolder",
                 timeHolder);
         contextAwareSet.forEach(aware -> aware.setChannelHandlerContext(ctx));
+        ctx.flush();
+    }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        super.channelActive(ctx);
+        ctx.flush();
     }
 
     @Override

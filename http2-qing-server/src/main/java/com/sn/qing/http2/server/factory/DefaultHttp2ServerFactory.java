@@ -26,7 +26,7 @@ public class DefaultHttp2ServerFactory implements Http2ServerFactory {
         InetSocketAddress address = StringUtil.isNullOrEmpty(env.getIp()) ?
                 new InetSocketAddress(env.getPort()) : new InetSocketAddress(env.getIp(), env.getPort());
         NettyHttp2HandlerBuilder builder = new NettyHttp2HandlerBuilder()
-                .server(false)
+                .server(true)
                 .initialWindowSize(env.getWindowSize())
                 .maxFrameSize(env.getMaxFrameSize())
                 .maxHeaderListSize(env.getHeaderListSize())

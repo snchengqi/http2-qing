@@ -31,7 +31,7 @@ public class RequestContext {
     }
 
     public boolean isSuccess() {
-        return !Objects.isNull(cause);
+        return Objects.isNull(cause);
     }
 
     public ConnectionFacade connection() {

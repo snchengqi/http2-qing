@@ -29,9 +29,6 @@ public class Http2ServerFactoryBuilder {
      * check {@link Environment} for server building
      */
     private void checkEnvironment() {
-        if (StringUtil.isNullOrEmpty(env.getIp())) {
-            throw new IllegalArgumentException("environment parameter: ip must not be empty");
-        }
         if (Objects.isNull(env.getPort())) {
             throw new IllegalArgumentException("environment parameter: port must not be null");
         }

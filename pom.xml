@@ -12,6 +12,7 @@
     <module>http2-qing-core</module>
     <module>http2-qing-client</module>
     <module>http2-qing-server</module>
+    <module>http2-qing-example</module>
   </modules>
 
   <name>http2-qing</name>

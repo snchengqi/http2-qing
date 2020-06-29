@@ -72,4 +72,10 @@ public class SimpleConnectionFacade implements ConnectionFacade {
     public int hashCode() {
         return Objects.hash(connection);
     }
+
+    @Override
+    public int compareTo(ConnectionFacade o) {
+        SimpleConnectionFacade other = (SimpleConnectionFacade) o;
+        return this.connection.hashCode() - other.connection.hashCode();
+    }
 }
