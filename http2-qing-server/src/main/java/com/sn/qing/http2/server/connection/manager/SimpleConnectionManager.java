@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
  * it will add connection to the set itself when the connection is created,
  * and remove it when closed
  * @author ChengQi
- * @date 2020-06-28 11:01
+ * @date 2020-06-28
  */
 public class SimpleConnectionManager extends ConcurrentSkipListSet<ConnectionFacade> implements ConnectionManager {
 

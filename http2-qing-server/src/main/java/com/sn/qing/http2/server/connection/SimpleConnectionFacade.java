@@ -13,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Default implement of {@link ConnectionFacade}
  * @author ChengQi
- * @date 2020-06-24 14:37
+ * @date 2020-06-24
  */
 public class SimpleConnectionFacade implements ConnectionFacade {
 

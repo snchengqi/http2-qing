@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * A subclass of {@link Http2ConnectionHandler}
  * @author ChengQi
- * @date 2020-06-19 9:27
+ * @date 2020-06-19
  */
 public class NettyHttp2Handler extends Http2ConnectionHandler {
 
@@ -80,7 +80,7 @@ public class NettyHttp2Handler extends Http2ConnectionHandler {
         try {
             connection.close();
         } catch (IOException e) {
-            //TODO log
+//            e.printStackTrace();
         }
     }
 
@@ -103,7 +103,7 @@ public class NettyHttp2Handler extends Http2ConnectionHandler {
                     return;
                 }
                 encoder().writePing(ctx, false, System.currentTimeMillis(), ctx.newPromise());
-                ctx.flush();
+                flush(ctx);
             }
         }
     }

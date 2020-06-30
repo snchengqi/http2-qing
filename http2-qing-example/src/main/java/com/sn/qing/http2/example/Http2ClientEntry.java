@@ -1,4 +1,4 @@
-package com.sn.qing.example;
+package com.sn.qing.http2.example;
 
 import com.sn.qing.http2.client.Http2Client;
 import com.sn.qing.http2.client.environment.Environment4Client;
@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * @author ChengQi
- * @date 2020-06-28 16:14
+ * @date 2020-06-28
  */
 public class Http2ClientEntry {
 

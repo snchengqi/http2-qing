@@ -4,7 +4,7 @@ import io.netty.handler.codec.http2.Http2Headers;
 
 /**
  * @author ChengQi
- * @date 2020-06-22 17:16
+ * @date 2020-06-22
  */
 public class HttpRequest extends HttpEntity {
 

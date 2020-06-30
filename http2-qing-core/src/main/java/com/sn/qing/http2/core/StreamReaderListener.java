@@ -7,7 +7,7 @@ import io.netty.handler.codec.http2.Http2Stream;
 /**
  * Callback of stream message when reading
  * @author ChengQi
- * @date 2020-06-19 14:17
+ * @date 2020-06-19
  */
 public interface StreamReaderListener {
 

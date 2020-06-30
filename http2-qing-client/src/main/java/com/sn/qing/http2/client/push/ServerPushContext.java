@@ -8,7 +8,7 @@ import java.util.Objects;
 
 /**
  * @author ChengQi
- * @date 2020-06-23 17:29
+ * @date 2020-06-23
  */
 public class ServerPushContext {
 
@@ -25,8 +25,8 @@ public class ServerPushContext {
         this.cause = cause;
     }
 
-    public static ServerPushContext of(Http2Client client, Http2Stream stream,
-                                       HttpPushEntity pushEntity, Throwable cause) {
+    public static ServerPushContext create(Http2Client client, Http2Stream stream,
+                                           HttpPushEntity pushEntity, Throwable cause) {
         return new ServerPushContext(client, stream, pushEntity, cause);
     }
 

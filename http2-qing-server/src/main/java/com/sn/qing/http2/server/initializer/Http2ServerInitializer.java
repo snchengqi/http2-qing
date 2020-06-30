@@ -9,7 +9,7 @@ import java.io.InputStream;
 
 /**
  * @author ChengQi
- * @date 2020-06-23 11:00
+ * @date 2020-06-23
  */
 public class Http2ServerInitializer extends AbstractHttp2Initializer {
 

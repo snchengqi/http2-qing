@@ -5,7 +5,7 @@ import com.sn.qing.http2.core.connection.Connection;
 /**
  * Connection initialization post processor
  * @author ChengQi
- * @date 2020-06-19 9:39
+ * @date 2020-06-19
  */
 @FunctionalInterface
 public interface ConnectionPostProcessor {

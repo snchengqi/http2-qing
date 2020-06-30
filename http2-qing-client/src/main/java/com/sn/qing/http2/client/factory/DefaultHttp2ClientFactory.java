@@ -10,7 +10,7 @@ import java.net.InetSocketAddress;
 /**
  * Default implement of {@link Http2Client} factory method
  * @author ChengQi
- * @date 2020-06-23 11:55
+ * @date 2020-06-23
  */
 public class DefaultHttp2ClientFactory implements Http2ClientFactory {
 

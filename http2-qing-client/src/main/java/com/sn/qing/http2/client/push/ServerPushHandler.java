@@ -5,7 +5,7 @@ import com.sn.qing.http2.client.Http2Client;
 /**
  * The functional interface is use to handle server-push
  * @author ChengQi
- * @date 2020-06-23 17:39
+ * @date 2020-06-23
  */
 @FunctionalInterface
 public interface ServerPushHandler {

@@ -17,7 +17,7 @@ import java.security.cert.CertificateFactory;
 
 /**
  * @author ChengQi
- * @date 2020-06-23 10:59
+ * @date 2020-06-23
  */
 public class Http2ClientInitializer extends AbstractHttp2Initializer {
 

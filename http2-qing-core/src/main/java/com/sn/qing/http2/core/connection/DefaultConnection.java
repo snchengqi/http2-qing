@@ -19,9 +19,9 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.Consumer;
 
 /**
- * Default implement of {@link Connection} base netty-http2
+ * Default implement of {@link Connection} based on netty-http2
  * @author ChengQi
- * @date 2020-06-18 18:00
+ * @date 2020-06-18
  */
 public class DefaultConnection implements Connection, ChannelHandlerContextAware {
 
@@ -194,7 +194,7 @@ public class DefaultConnection implements Connection, ChannelHandlerContextAware
                 return true;
             });
         } catch (Http2Exception e) {
-            //TODO log exception
+//            e.printStackTrace();
         }
     }
 

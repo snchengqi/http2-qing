@@ -5,7 +5,7 @@ import com.sn.qing.http2.server.Http2Server;
 /**
  * {@link Http2Server} factory method
  * @author ChengQi
- * @date 2020-06-24 14:09
+ * @date 2020-06-24
  */
 public interface Http2ServerFactory {
 

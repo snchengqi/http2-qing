@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Netty default implement of {@link Http2Server}
  * @author ChengQi
- * @date 2020-06-24 14:05
+ * @date 2020-06-24
  */
 public class DefaultHttp2Server implements Http2Server {
 

@@ -5,7 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 /**
  * {@link ChannelHandlerContext} callback interface
  * @author ChengQi
- * @date 2020-06-19 9:13
+ * @date 2020-06-19
  */
 public interface ChannelHandlerContextAware {
 

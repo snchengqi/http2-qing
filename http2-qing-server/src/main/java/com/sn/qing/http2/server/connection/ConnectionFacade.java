@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
  * Facade of http2 connection for server endpoint,
  * it provider written and closable methods and hide others
  * @author ChengQi
- * @date 2020-06-24 14:22
+ * @date 2020-06-24
  */
 public interface ConnectionFacade extends Closeable, Comparable<ConnectionFacade> {
 

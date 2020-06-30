@@ -14,7 +14,7 @@ import java.util.Optional;
  * A subclass to build {@link NettyHttp2Handler} which extends
  * {@link io.netty.handler.codec.http2.Http2ConnectionHandler}
  * @author ChengQi
- * @date 2020-06-19 9:27
+ * @date 2020-06-19
  */
 public class NettyHttp2HandlerBuilder extends AbstractHttp2ConnectionHandlerBuilder<NettyHttp2Handler, NettyHttp2HandlerBuilder> {
 

@@ -11,7 +11,7 @@ import java.net.InetSocketAddress;
 /**
  * Default implement of {@link Http2Server} factory method
  * @author ChengQi
- * @date 2020-06-24 17:22
+ * @date 2020-06-24
  */
 public class DefaultHttp2ServerFactory implements Http2ServerFactory {
 

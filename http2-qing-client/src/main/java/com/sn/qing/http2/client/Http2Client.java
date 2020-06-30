@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * @author ChengQi
- * @date 2020-06-22 16:27
+ * @date 2020-06-22
  */
 public interface Http2Client extends Closeable {
 

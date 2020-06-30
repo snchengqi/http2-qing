@@ -10,7 +10,7 @@ import java.util.Objects;
  * Builder class of {@link DefaultHttp2ClientFactory},
  * which is an implement of {@link Http2ClientFactory}
  * @author ChengQi
- * @date 2020-06-23 14:38
+ * @date 2020-06-23
  */
 public class Http2ClientFactoryBuilder {
 

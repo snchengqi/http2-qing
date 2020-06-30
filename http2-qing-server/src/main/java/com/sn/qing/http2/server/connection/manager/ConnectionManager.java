@@ -11,7 +11,7 @@ import com.sn.qing.http2.server.connection.SimpleConnectionFacade;
  * there is a default implement class
  * @see SimpleConnectionManager
  * @author ChengQi
- * @date 2020-06-24 12:16
+ * @date 2020-06-24
  */
 public interface ConnectionManager extends Connection.Listener {
 

@@ -30,7 +30,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Netty default implement of {@link Http2Client} interface
  * @author ChengQi
- * @date 2020-06-22 17:09
+ * @date 2020-06-22
  */
 public class DefaultHttp2Client implements Http2Client {
 
@@ -100,7 +100,7 @@ public class DefaultHttp2Client implements Http2Client {
         try {
             if (!isConnected.get() && !isNormalClosed.get() && reconnectPolicy.supportReconnect()) {
                 doReconnect();
-            } else if (!(isConnected.get() || isNormalClosed.get())) {
+            } else if (!isConnected.get()) {
                 close0();
             }
         } catch (IOException e) {
@@ -260,14 +260,14 @@ public class DefaultHttp2Client implements Http2Client {
 
         @Override
         public void onStreamMessageRead(Connection connection, Http2Stream stream, StreamMessage streamMessage) {
-            ServerPushContext context = ServerPushContext.of(DefaultHttp2Client.this,
+            ServerPushContext context = ServerPushContext.create(DefaultHttp2Client.this,
                     stream, new HttpPushEntity(streamMessage), null);
             pushHandler.onReceived(context);
         }
 
         @Override
         public void onStreamError(Connection connection, Http2Stream stream, Throwable cause) {
-            ServerPushContext context = ServerPushContext.of(DefaultHttp2Client.this,
+            ServerPushContext context = ServerPushContext.create(DefaultHttp2Client.this,
                     stream, null, cause);
             pushHandler.onReceived(context);
         }

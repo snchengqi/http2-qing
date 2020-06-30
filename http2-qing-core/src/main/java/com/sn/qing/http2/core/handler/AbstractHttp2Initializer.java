@@ -8,7 +8,7 @@ import io.netty.handler.ssl.SslHandler;
 
 /**
  * @author ChengQi
- * @date 2020-06-23 10:08
+ * @date 2020-06-23
  */
 public abstract class AbstractHttp2Initializer extends ChannelInitializer<SocketChannel> {
 

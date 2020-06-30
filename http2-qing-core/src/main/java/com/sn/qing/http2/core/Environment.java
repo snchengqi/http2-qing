@@ -3,7 +3,7 @@ package com.sn.qing.http2.core;
 import static io.netty.handler.codec.http2.Http2CodecUtil.*;
 /**
  * @author ChengQi
- * @date 2020-06-23 11:31
+ * @date 2020-06-23
  */
 public abstract class Environment<E extends Environment<E>> {
 

@@ -11,7 +11,7 @@ import java.io.Closeable;
  * maintain {@link State} itself and propagate to {@link Listener}.
  * It provides some write method and read for callback.
  * @author ChengQi
- * @date 2020-06-18 16:20
+ * @date 2020-06-18
  */
 public interface Connection extends StreamReaderInvoker, StreamWriterInvoker, Closeable {
 

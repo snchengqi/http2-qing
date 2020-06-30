@@ -3,7 +3,7 @@ package com.sn.qing.http2.server.request;
 /**
  * The functional interface is use to handle request message
  * @author ChengQi
- * @date 2020-06-24 16:35
+ * @date 2020-06-24
  */
 @FunctionalInterface
 public interface RequestHandler {

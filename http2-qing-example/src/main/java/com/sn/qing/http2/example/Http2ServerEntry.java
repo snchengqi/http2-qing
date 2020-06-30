@@ -1,4 +1,4 @@
-package com.sn.qing.example;
+package com.sn.qing.http2.example;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.sn.qing.http2.core.entity.HttpPushAck;
@@ -20,7 +20,7 @@ import java.util.concurrent.*;
 
 /**
  * @author ChengQi
- * @date 2020-06-28 16:15
+ * @date 2020-06-28
  */
 public class Http2ServerEntry {
 

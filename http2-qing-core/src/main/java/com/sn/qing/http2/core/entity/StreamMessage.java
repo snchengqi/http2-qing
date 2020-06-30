@@ -4,7 +4,7 @@ import io.netty.handler.codec.http2.Http2Headers;
 
 /**
  * @author ChengQi
- * @date 2020-06-18 17:28
+ * @date 2020-06-18
  */
 public class StreamMessage {
 

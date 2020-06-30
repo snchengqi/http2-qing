@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * @author ChengQi
- * @date 2020-06-18 17:03
+ * @date 2020-06-18
  */
 public interface StreamWriterInvoker {
 

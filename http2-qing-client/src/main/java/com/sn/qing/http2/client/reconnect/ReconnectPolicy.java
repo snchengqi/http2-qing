@@ -6,7 +6,7 @@ import com.sn.qing.http2.client.DefaultHttp2Client;
  * when lost connect, the client will use the functional interface to do reconnect
  * @see DefaultHttp2Client
  * @author ChengQi
- * @date 2020-06-23 15:30
+ * @date 2020-06-23
  */
 @FunctionalInterface
 public interface ReconnectPolicy {

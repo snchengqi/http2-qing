@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
  * Interface of http2 server, it provider methods to start and shutdown server,
  * also will manage client connections using {@link ConnectionManager}
  * @author ChengQi
- * @date 2020-06-24 13:53
+ * @date 2020-06-24
  */
 public interface Http2Server extends Closeable {
 

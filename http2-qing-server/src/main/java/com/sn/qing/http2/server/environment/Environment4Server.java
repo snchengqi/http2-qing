@@ -6,7 +6,7 @@ import com.sn.qing.http2.server.request.RequestHandler;
 
 /**
  * @author ChengQi
- * @date 2020-06-24 16:04
+ * @date 2020-06-24
  */
 public class Environment4Server extends Environment<Environment4Server> {
 
