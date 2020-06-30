@@ -47,6 +47,7 @@ public class Http2ServerEntry {
                 connection.sendResponse(response, stream.id());
                 return;
             }
+
             context.cause().printStackTrace();
         });
 
