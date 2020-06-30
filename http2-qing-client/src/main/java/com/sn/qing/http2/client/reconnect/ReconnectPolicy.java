@@ -3,7 +3,7 @@ package com.sn.qing.http2.client.reconnect;
 import com.sn.qing.http2.client.DefaultHttp2Client;
 
 /**
- * when lost connect, the client will use the functional interface to do reconnect
+ * When lost connect, the client will use the functional interface to do reconnect
  * @see DefaultHttp2Client
  * @author ChengQi
  * @date 2020-06-23

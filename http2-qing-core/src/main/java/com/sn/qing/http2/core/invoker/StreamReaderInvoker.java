@@ -4,6 +4,8 @@ import com.sn.qing.http2.core.entity.StreamMessage;
 import io.netty.handler.codec.http2.Http2Stream;
 
 /**
+ * Top level abstract interface for {@link Http2Stream} reading,
+ * hide http2 frame reading and provider stream message
  * @author ChengQi
  * @date 2020-06-18
  */

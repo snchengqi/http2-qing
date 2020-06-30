@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.concurrent.*;
 
 /**
+ * Example for show how to use http on server endpoint
  * @author ChengQi
  * @date 2020-06-28
  */

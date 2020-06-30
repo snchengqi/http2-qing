@@ -5,6 +5,8 @@ import com.sn.qing.http2.server.connection.manager.ConnectionManager;
 import com.sn.qing.http2.server.request.RequestHandler;
 
 /**
+ * The sub class of {@link Environment} for constructing
+ * {@link com.sn.qing.http2.server.Http2Server}
  * @author ChengQi
  * @date 2020-06-24
  */

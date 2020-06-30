@@ -17,6 +17,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 /**
+ * Example for show how to use http on client endpoint
  * @author ChengQi
  * @date 2020-06-28
  */

@@ -16,6 +16,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 
 /**
+ * It is used to add handler for netty http2 client
  * @author ChengQi
  * @date 2020-06-23
  */

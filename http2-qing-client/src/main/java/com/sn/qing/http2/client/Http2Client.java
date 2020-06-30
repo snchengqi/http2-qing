@@ -8,6 +8,8 @@ import java.io.Closeable;
 import java.util.concurrent.CompletableFuture;
 
 /**
+ * Http2Client interface, it defines ability for connect to remote,
+ * send message asynchronously and so on
  * @author ChengQi
  * @date 2020-06-22
  */

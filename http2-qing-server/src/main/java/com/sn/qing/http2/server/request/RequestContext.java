@@ -7,6 +7,8 @@ import io.netty.handler.codec.http2.Http2Stream;
 import java.util.Objects;
 
 /**
+ * The context of client request, it aggregates request data or cause,
+ * http2 stream and facade of connection which is used to send response for this request
  * @author ChengQi
  * @date 2020-06-24
  */

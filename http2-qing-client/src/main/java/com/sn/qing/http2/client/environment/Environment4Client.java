@@ -5,6 +5,8 @@ import com.sn.qing.http2.client.reconnect.ReconnectPolicy;
 import com.sn.qing.http2.core.Environment;
 
 /**
+ * The sub class of {@link Environment}
+ * for constructing {@link com.sn.qing.http2.client.Http2Client}
  * @author ChengQi
  * @date 2020-06-24
  */

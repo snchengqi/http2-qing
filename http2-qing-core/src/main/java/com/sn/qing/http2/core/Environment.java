@@ -2,6 +2,8 @@ package com.sn.qing.http2.core;
 
 import static io.netty.handler.codec.http2.Http2CodecUtil.*;
 /**
+ * The abstract class which is used to build client and server,
+ * it has some universal options
  * @author ChengQi
  * @date 2020-06-23
  */

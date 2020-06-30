@@ -5,10 +5,10 @@ import com.sn.qing.http2.core.StreamReaderListener;
 import com.sn.qing.http2.core.connection.Connection;
 import com.sn.qing.http2.core.entity.HttpRequest;
 import com.sn.qing.http2.core.entity.StreamMessage;
-import com.sn.qing.http2.server.initializer.Http2ServerInitializer;
 import com.sn.qing.http2.core.handler.NettyHttp2HandlerBuilder;
 import com.sn.qing.http2.server.connection.SimpleConnectionFacade;
 import com.sn.qing.http2.server.connection.manager.ConnectionManager;
+import com.sn.qing.http2.server.initializer.Http2ServerInitializer;
 import com.sn.qing.http2.server.request.RequestContext;
 import com.sn.qing.http2.server.request.RequestHandler;
 import io.netty.bootstrap.ServerBootstrap;
@@ -19,7 +19,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http2.Http2Stream;
 
-import java.io.IOException;
 import java.net.SocketAddress;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -42,6 +41,9 @@ public class DefaultHttp2Server implements Http2Server {
 
     private final RequestHandler requestHandler;
 
+    /**
+     * the listener is used to count numbers of client connection
+     */
     private final Connection.Listener innerConnectionListener = (connection, state) -> {
         if (state == Connection.State.CREATED) {
             connectionCount.incrementAndGet();
@@ -92,7 +94,7 @@ public class DefaultHttp2Server implements Http2Server {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         channelFuture.channel().close();
         bossGroup.shutdownGracefully();
         workGroup.shutdownGracefully();

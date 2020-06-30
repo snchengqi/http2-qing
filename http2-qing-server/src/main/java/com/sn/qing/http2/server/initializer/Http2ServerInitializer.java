@@ -8,6 +8,7 @@ import io.netty.handler.ssl.*;
 import java.io.InputStream;
 
 /**
+ * It is used to add handler for netty http2 server
  * @author ChengQi
  * @date 2020-06-23
  */

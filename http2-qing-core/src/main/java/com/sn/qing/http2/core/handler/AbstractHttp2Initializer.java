@@ -7,6 +7,9 @@ import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslHandler;
 
 /**
+ * The subclass of {@link ChannelInitializer} for http2 protocol,
+ * it is responsible for adding {@link SslHandler} and {@link NettyHttp2Handler}
+ * to {@link ChannelPipeline}, it is also a template method class for client and server
  * @author ChengQi
  * @date 2020-06-23
  */

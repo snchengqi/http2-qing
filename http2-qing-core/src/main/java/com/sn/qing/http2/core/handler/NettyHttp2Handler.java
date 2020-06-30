@@ -17,7 +17,8 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * A subclass of {@link Http2ConnectionHandler}
+ * A subclass of {@link Http2ConnectionHandler}, it providers idle check function
+ * and notify {@link Connection} when state changed or reads frame
  * @author ChengQi
  * @date 2020-06-19
  */
@@ -43,14 +44,27 @@ public class NettyHttp2Handler extends Http2ConnectionHandler {
         this.timeHolder = new ReadOrWriteTimeHolder(heartbeatTimeout);
     }
 
+    /**
+     * add implement of {@link ChannelHandlerContextAware},
+     * will set {@link ChannelHandlerContext} to them later
+     * @param aware ChannelHandlerContextAware
+     */
     public void addChannelHandlerContextAware(ChannelHandlerContextAware aware) {
         contextAwareSet.add(aware);
     }
 
+    /**
+     * set {@link Connection} as property itself
+     * @param connection the abstract of connection
+     */
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
 
+    /**
+     * get the {@link Connection} property
+     * @return the abstract of connection
+     */
     public Connection getConnection() {
         return connection;
     }

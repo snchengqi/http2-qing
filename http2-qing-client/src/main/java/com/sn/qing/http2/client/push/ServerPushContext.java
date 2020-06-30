@@ -7,6 +7,8 @@ import io.netty.handler.codec.http2.Http2Stream;
 import java.util.Objects;
 
 /**
+ * The context of server-push, it aggregates push data or cause,
+ * http2 stream and client which is used to send ack for this push
  * @author ChengQi
  * @date 2020-06-23
  */

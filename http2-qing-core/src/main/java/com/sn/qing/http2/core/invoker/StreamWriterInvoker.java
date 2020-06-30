@@ -8,6 +8,8 @@ import io.netty.handler.codec.http2.Http2Stream;
 import java.util.concurrent.CompletableFuture;
 
 /**
+ * Top level abstract interface for {@link Http2Stream} writing,
+ * hide http2 frame writing and provider stream message
  * @author ChengQi
  * @date 2020-06-18
  */
