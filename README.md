@@ -1,5 +1,5 @@
 # http2-qing
-http2-qing is the encapsulation of http2 protocol based on netty
+http2-qing is a library for http2 protocol based on netty
 
 ## Features
 
@@ -12,6 +12,16 @@ http2-qing is the encapsulation of http2 protocol based on netty
 ## How  to use
 
 ### program  codes  for  server
+
+Firstly, import maven dependency about http2-server to your project
+
+```xml
+<dependency>
+  <groupId>com.github.snchengqi</groupId>
+  <artifactId>http2-qing-server</artifactId>
+  <version>1.0.1</version>
+</dependency>
+```
 
 Construct the environment of server, and config necessary options. Firstly, you need to new a Environment4Server object, and then set propeties such as port,ConnectionManager,RequestHandler, as follows excample
 
@@ -74,6 +84,16 @@ server.close();
 ```
 
 ### program  code  for   client
+
+Firstly, import maven dependency about http2-client to your project
+
+```xml
+<dependency>
+  <groupId>com.github.snchengqi</groupId>
+  <artifactId>http2-qing-client</artifactId>
+  <version>1.0.1</version>
+</dependency>
+```
 
 Construct the environment of client, and config necessary options. Firstly, you need to new a Environment4Client object, and then set propeties such as remote ip and port,ServerPushHandler, as follows excample
 
