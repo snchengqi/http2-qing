@@ -1,24 +1,22 @@
 # http2-qing
-http2-qing is a library for http2 protocol based on netty
-
-[中文文档](https://github.com/snchengqi/http2-qing/blob/1.0.0/README_zh.md)
+http2-qing是一个底层使用Netty封装的HTTP2.0协议库
 
 ![](https://img.shields.io/badge/license-Apache2-000000.svg)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/snchengqi/http2-qing)
 
-## Features
+## 特性
 
-- Develop based on netty,with good performance
-- Encapsulate the http2 protocol and provide simple and easy-to-use APIs
-- Basically all asynchronous methods
-- Support manage connections of server and server-push
-- Provides client disconnection and reconnection and support customized reconnect policy
+- 基于Netty开发，拥有很好的性能
+- 对HTTP2协议的封装，提供了简单易用的API
+- 基本上所有的方法都是异步的
+- 支持连接全生命周期的管理和服务器推送（server-push）
+- 提供了客户端断连重连机制，并且支持自定义重连策略
 
-## How  to use
+## 如何使用
 
-### program  codes  for  server
+### 服务端编码
 
-Firstly, import maven dependency about http2-server to your project
+首先，通过Maven构建工具将http2-qing-server模块的依赖引入到项目中。
 
 ```xml
 <dependency>
@@ -28,7 +26,7 @@ Firstly, import maven dependency about http2-server to your project
 </dependency>
 ```
 
-Construct the environment of server, and config necessary options. Firstly, you need to new a Environment4Server object, and then set propeties such as port,ConnectionManager,RequestHandler, as follows excample
+构造服务器环境，配置必须的启动参数。首先，需要创建一个Environment4Server 对象，创建好对象之后，设置比如端口，ConnectionManager，RequestHandler的属性，如下示例：
 
 ```java
 SimpleConnectionManager connectionManager = new SimpleConnectionManager();
@@ -54,7 +52,7 @@ env.setPort(8080).setConnectionManager(connectionManager).setRequestHandler(cont
 });
 ```
 
-Using Http2ServerFactoryBuilder to build the object which is a factory method object of Http2Server, so you can create a Http2Server Object, then start the server
+利用Http2ServerFactoryBuilder 对象去构建一个Http2Server的工厂对象Http2ServerFactory，之后你就可以创建Http2Server 对象了，对象创建完成之后启动Http2Server。
 
 ```java
 Http2ServerFactory factory = new Http2ServerFactoryBuilder(env).build();
@@ -63,7 +61,7 @@ CompletableFuture<Void> bindFuture = server.start();
 bindFuture.get();
 ```
 
-And then, could get the connection by connectionManager  which you defined, and send server-push to remote endpoint, for example, like this
+之后你可以通过你先前定义好的connectionManager获取连接，并且可以通过server-push机制将消息推送到对端，示例如下：
 
 ```java
 connectionManager.forEach(connection -> {
@@ -82,15 +80,15 @@ connectionManager.forEach(connection -> {
 };
 ```
 
-Finally, don`t forget close the Http2Server to release resources
+最后，当关闭程序时，不要忘记调用Http2Server的close方法来释放资源。
 
 ```java
 server.close();
 ```
 
-### program  code  for   client
+### 客户端编码
 
-Firstly, import maven dependency about http2-client to your project
+首先，通过Maven构建工具将http2-qing-client模块的依赖引入到项目中。
 
 ```xml
 <dependency>
@@ -100,7 +98,7 @@ Firstly, import maven dependency about http2-client to your project
 </dependency>
 ```
 
-Construct the environment of client, and config necessary options. Firstly, you need to new a Environment4Client object, and then set propeties such as remote ip and port,ServerPushHandler, as follows excample
+构造客户端环境对象，并且配置必须的启动参数。首先，你需要创建一个Environment4Client对象，之后设置像服务器ip，端口和ServerPushHandler等属性，示例如下：
 
 ```java
 Environment4Client env = new Environment4Client();
@@ -125,7 +123,7 @@ env.setIp("127.0.0.1").setPort(8080).setServerPushHandler(context -> {
 });
 ```
 
-Using Http2ClientFactoryBuilder to build the object which is a factory method object of Http2Client, so you can create a Http2Client Object, then start it to connect to remote server
+利用Http2ClientFactoryBuilder对象来构建创建Http2Client的工厂方法对象Http2ClientFactory，之后你就可以创建Http2Client了，并且可以启动客户端连接到服务器。
 
 ```java
 Http2ClientFactory factory = new Http2ClientFactoryBuilder(env).build();
@@ -134,7 +132,7 @@ CompletableFuture<Void> connectFuture = client.connect();
 connectFuture.get();
 ```
 
-After connected to server, you can user the client to send a request and receive response asynchronously
+连接到服务器之后，你可以利用客户端异步地发送http2请求和接收服务器的响应消息。
 
 ```java
 String requestContent = "request message of client";
@@ -153,7 +151,7 @@ requestFuture.whenComplete((r, cause) -> {
 });
 ```
 
-Finally，remember to close the client 
+最后，记得关闭客户端以释放资源。
 
 ```java
 client.close();
