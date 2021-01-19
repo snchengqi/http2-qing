@@ -73,7 +73,7 @@ public class Http2ServerEntry {
                    }
                    cause.printStackTrace();
                 });
-            }), 1, 1, TimeUnit.SECONDS);
+            }), 1, 1, TimeUnit.MILLISECONDS);
 
             Thread.sleep(3600000);
             EXECUTOR_SERVICE.shutdown();

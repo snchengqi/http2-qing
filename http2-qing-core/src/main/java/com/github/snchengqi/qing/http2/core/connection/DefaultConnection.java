@@ -16,7 +16,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * Default implement of {@link Connection} based on netty-http2
@@ -282,19 +284,24 @@ public class DefaultConnection implements Connection, ChannelHandlerContextAware
 
     @Override
     public CompletableFuture<Http2Stream> writeHeaders(Http2Headers headers, boolean endStream, StreamReaderListener listener) {
-        int streamId = connection.local().incrementAndGetNextStreamId();
         try {
-            Http2Stream stream = connection.local().createStream(streamId, false);
             if (Objects.isNull(listener)) {
                 listener = doNothingListener;
             }
             StreamReaderListener finalListener = listener;
-            return doInEventLoop(stream, promise -> {
+            return doInEventLoop(() -> {
+                try {
+                    int streamId = connection.local().incrementAndGetNextStreamId();
+                    return connection.local().createStream(streamId, false);
+                } catch (Http2Exception e) {
+                    throw new IllegalStateException(e);
+                }
+            }, (stream, promise) -> {
                 stream.setProperty(streamListenerKey, finalListener);
-                encoder.writeHeaders(context, streamId, headers, 0, endStream, promise);
+                encoder.writeHeaders(context, stream.id(), headers, 0, endStream, promise);
                 context.pipeline().flush();
             });
-        } catch (Http2Exception e) {
+        } catch (Exception e) {
             CompletableFuture<Http2Stream> future = new CompletableFuture<>();
             future.completeExceptionally(e);
             return future;
@@ -305,7 +312,7 @@ public class DefaultConnection implements Connection, ChannelHandlerContextAware
     public CompletableFuture<Http2Stream> writeHeaders(Http2Headers headers, boolean endStream, int streamId) {
         Http2Stream stream = connection.stream(streamId);
         Objects.requireNonNull(stream, "stream not exist");
-        return doInEventLoop(stream, promise -> {
+        return doInEventLoop(() -> stream, (stream_, promise) -> {
             encoder.writeHeaders(context, streamId, headers, 0, endStream, promise);
             context.pipeline().flush();
         });
@@ -313,7 +320,7 @@ public class DefaultConnection implements Connection, ChannelHandlerContextAware
 
     @Override
     public CompletableFuture<Http2Stream> writeData(Http2Stream stream, byte[] data, boolean endStream) {
-        return doInEventLoop(stream, promise -> {
+        return doInEventLoop(() -> stream, (stream_, promise) -> {
             ByteBuf byteBuf = context.alloc().buffer().writeBytes(data);
             encoder.writeData(context, stream.id(), byteBuf, 0, endStream, promise);
             context.pipeline().flush();
@@ -337,29 +344,39 @@ public class DefaultConnection implements Connection, ChannelHandlerContextAware
 
     /**
      * execute consumer function in netty event loop thread
-     * @param result result for future
+     * @param supplier result for future
      * @param consumer consumer function
      * @param <R> type of result
      * @return future
      */
-    private <R> CompletableFuture<R> doInEventLoop(R result, Consumer<ChannelPromise> consumer) {
+    private <R> CompletableFuture<R> doInEventLoop(Supplier<R> supplier, BiConsumer<R, ChannelPromise> consumer) {
         CompletableFuture<R> cf = new CompletableFuture<>();
-        ChannelPromise promise = context.newPromise().addListener(future -> {
-            if (future.isSuccess()) {
-                cf.complete(result);
-            } else {
-                cf.completeExceptionally(future.cause());
-            }
-        });
 
         EventLoop eventLoop = context.channel().eventLoop();
         if (eventLoop.inEventLoop()) {
-            consumer.accept(promise);
+            R result = supplier.get();
+            ChannelPromise promise = context.newPromise().addListener(future -> {
+                if (future.isSuccess()) {
+                    cf.complete(result);
+                } else {
+                    cf.completeExceptionally(future.cause());
+                }
+            });
+            consumer.accept(result, promise);
             return cf;
         }
 
-        CompletableFuture.runAsync(() -> consumer.accept(promise), eventLoop)
-                .whenComplete((v, cause) -> {
+        CompletableFuture.runAsync(() -> {
+            R result = supplier.get();
+            ChannelPromise promise = context.newPromise().addListener(future -> {
+                if (future.isSuccess()) {
+                    cf.complete(result);
+                } else {
+                    cf.completeExceptionally(future.cause());
+                }
+            });
+            consumer.accept(result, promise);
+        }, eventLoop).whenComplete((v, cause) -> {
                     if (!Objects.isNull(cause)) {
                         cf.completeExceptionally(cause);
                     }
