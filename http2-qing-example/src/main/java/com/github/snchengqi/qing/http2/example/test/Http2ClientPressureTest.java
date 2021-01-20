@@ -49,7 +49,7 @@ public class Http2ClientPressureTest {
                         System.out.println("TPS: " + countSend * 1000 / (System.currentTimeMillis() - start));
                     }
                 });
-                Thread.sleep(1);
+//                Thread.sleep(1);
             }
         }
     }

@@ -98,6 +98,7 @@ public class DefaultConnection implements Connection, ChannelHandlerContextAware
                 streamMessage.setData(newDataBytes);
             }
             if (endOfStream) {
+                stream.removeProperty(streamMessageKey);
                 onStreamMessageRead(stream, streamMessage);
             }
             return readableSize;
@@ -110,6 +111,7 @@ public class DefaultConnection implements Connection, ChannelHandlerContextAware
             StreamMessage streamMessage = new StreamMessage(headers);
             stream.setProperty(streamMessageKey, streamMessage);
             if (endStream) {
+                stream.removeProperty(streamMessageKey);
                 onStreamMessageRead(stream, streamMessage);
             }
         }
@@ -391,7 +393,7 @@ public class DefaultConnection implements Connection, ChannelHandlerContextAware
      * @param consumer consumer function
      */
     private void applyStreamListener(Http2Stream stream, Consumer<StreamReaderListener> consumer) {
-        StreamReaderListener listener = stream.getProperty(streamListenerKey);
+        StreamReaderListener listener = stream.removeProperty(streamListenerKey);
         if (Objects.isNull(listener)) {
             listener = defaultStreamListener;
         }
